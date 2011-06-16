@@ -5,26 +5,26 @@ module Hurl
     register Mustache::Sinatra
     helpers Hurl::Helpers
 
-    dir = File.dirname(File.expand_path(__FILE__))
+    dir = File.dirname(File.dirname(File.expand_path(__FILE__)))
 
     set :public,   "#{dir}/public"
     set :root,     RACK_ROOT
     set :app_file, __FILE__
     set :static,   true
 
-    set :views, "#{dir}/templates"
+    set :views, "#{dir}/app/templates"
 
     set :mustache, {
       :namespace => Object,
-      :views     => "#{dir}/views",
-      :templates => "#{dir}/templates"
+      :views     => "#{dir}/app/views",
+      :templates => "#{dir}/app/templates"
     }
 
     enable :sessions
 
-    set :github_options, { :client_id    => ENV['HURL_CLIENT_ID'],
-                           :secret       => ENV['HURL_SECRET'],
-                           :scopes       => '',
+    set :github_options, { :client_id    => '',
+                           :secret       => '',
+                           :scopes       => 'ShopIgniter',
                            :callback_url => '/login/callback/' }
 
     register ::Sinatra::Auth::Github
